@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: image-clone-controller
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: operator-role
+  namespace: image-clone-controller
+rules:
+  - apiGroups:
+      - apps
+    resources:
+      - daemonsets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: operator-rolebinding
+  namespace: image-clone-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: operator-role
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: image-clone-controller
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-clone-controller
+  namespace: image-clone-controller
+spec:
+  selector:
+    matchLabels:
+      app: image-clone-controller
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: image-clone-controller
+    spec:
+      containers:
+        - name: image-clone-controller
+          image: sankalprangare/image-clone-controller
+          imagePullPolicy: Always
+          env:
+          - name: REGISTRY
+            value: ${REGISTRY}
+          - name: REGISTRY_USER
+            value: ${REGISTRY_USER}
+          - name: REGISTRY_PASSWORD
+            value: ${REGISTRY_PASSWORD}
