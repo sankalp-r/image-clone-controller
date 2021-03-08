@@ -40,7 +40,6 @@ func CacheImage(src string, dst string) error {
 	if err != nil {
 		panic(err)
 	}
-
 	//Fetching src image reference
 	img, err := remote.Image(ref, remote.WithAuthFromKeychain(authn.DefaultKeychain))
 	if err != nil {

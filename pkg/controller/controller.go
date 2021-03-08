@@ -23,7 +23,7 @@ var _ reconcile.Reconciler = &ReconcileDeployment{}
 func (r *ReconcileDeployment) Reconcile(ctx context.Context, request reconcile.Request) (reconcile.Result, error) {
 	log := log.FromContext(ctx)
 
-	// Fetch the Deployment from the cache
+	// Fetch the Deployment
 	rs := &appsv1.Deployment{}
 	err := r.Client.Get(ctx, request.NamespacedName, rs)
 	if errors.IsNotFound(err) {
@@ -56,9 +56,8 @@ type ReconcileDaemonSet struct {
 var _ reconcile.Reconciler = &ReconcileDaemonSet{}
 
 func (r *ReconcileDaemonSet) Reconcile(ctx context.Context, request reconcile.Request) (reconcile.Result, error) {
-	// set up a convenient log object so we don't have to type request over and over again
 	log := log.FromContext(ctx)
-	// Fetch the ReplicaSet from the cache
+	// Fetch the DaemonSet
 	rs := &appsv1.DaemonSet{}
 	err := r.Client.Get(ctx, request.NamespacedName, rs)
 
