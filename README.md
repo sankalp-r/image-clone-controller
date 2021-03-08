@@ -23,6 +23,8 @@ Note: This controller will get deployed in `image-clone-controller` namespace.
   
 * To uninstall the controller run `make clean`.
 
+## Demo
+[![asciicast](https://asciinema.org/a/397344.svg)](https://asciinema.org/a/397344)
 
 ## Enhancement scope
 * This simple implementation can be further improved to production-grade implementation.
