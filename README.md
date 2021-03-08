@@ -11,12 +11,12 @@
 
 ## How to run
 Note: This controller will get deployed in `image-clone-controller` namespace. 
-* Export `REGISTRY`, `REGISTRY_USER` and `REGISTRY_PASSWORD` as env variables like example below:
+* Navigate to `setup/makebuild` and export `REGISTRY`, `REGISTRY_USER` and `REGISTRY_PASSWORD` as env variables like example below:
     * export REGISTRY=docker.io/sankalprangare
     * export REGISTRY_USER=abc
     * export REGISTRY_PASSWORD=abc123
     
-* To deploy the controller, navigate to `setup/makebuild` directory and run `make deploy`. <br>
+* After the previous step, run `make deploy` command from `Makefile`, this will deploy the controller. <br>
   Or you can also use `kubectl` directly, given that you replace env variables in the `deployment.yaml`.
   
 * Controller will update the images of respective objects after sometime.
