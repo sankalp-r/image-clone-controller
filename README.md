@@ -11,7 +11,7 @@
 
 ## How to run
 Note: This controller will get deployed in `image-clone-controller` namespace. 
-* Navigate to `setup/makebuild` and export `REGISTRY`, `REGISTRY_USER` and `REGISTRY_PASSWORD` as env variables like example below:
+* Navigate to `setup/makebuild` directory and export `REGISTRY`, `REGISTRY_USER` and `REGISTRY_PASSWORD` as env variables like example below:
     * export REGISTRY=docker.io/sankalprangare
     * export REGISTRY_USER=abc
     * export REGISTRY_PASSWORD=abc123
