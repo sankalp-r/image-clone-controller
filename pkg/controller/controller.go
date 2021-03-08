@@ -17,7 +17,6 @@ type ReconcileDeployment struct {
 	Client client.Client
 }
 
-
 var _ reconcile.Reconciler = &ReconcileDeployment{}
 
 func (r *ReconcileDeployment) Reconcile(ctx context.Context, request reconcile.Request) (reconcile.Result, error) {

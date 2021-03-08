@@ -33,7 +33,6 @@ func init() {
 	}
 }
 
-
 // copy repo & tag into registry
 func CacheImage(src string, dst string) error {
 	ref, err := name.ParseReference(src)
@@ -67,7 +66,7 @@ func ModifyImage(containers *[]v1.Container) error {
 		temp := strings.Split(c[i].Image, "/")
 		oldRegistry := temp[0]
 
-		if oldRegistry != strings.Split(NewRegistry,"/")[0] {
+		if oldRegistry != strings.Split(NewRegistry, "/")[0] {
 			newImage := NewRegistry + "/" + temp[len(temp)-1]
 			err := CacheFunc(c[i].Image, newImage)
 			if err != nil {

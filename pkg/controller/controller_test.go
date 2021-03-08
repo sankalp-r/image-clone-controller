@@ -17,19 +17,18 @@ func TestReconcileDeployment_Reconcile(t *testing.T) {
 	image := "image:latest"
 	dep := &appsv1.Deployment{
 		ObjectMeta: v12.ObjectMeta{
-			Name: "dep",
+			Name:      "dep",
 			Namespace: "default",
 		},
 		Spec: appsv1.DeploymentSpec{
 			Template: v1.PodTemplateSpec{
-				Spec: v1.PodSpec{Containers: []v1.Container{{Image: "docker.io/repo/"+image}}},
+				Spec: v1.PodSpec{Containers: []v1.Container{{Image: "docker.io/repo/" + image}}},
 			},
 		},
 	}
 	obj := []runtime.Object{dep}
 
 	cl := fake.NewClientBuilder().WithRuntimeObjects(obj...).Build()
-
 
 	r := ReconcileDeployment{cl}
 
@@ -51,7 +50,7 @@ func TestReconcileDeployment_Reconcile(t *testing.T) {
 	defer func() { utility.NewRegistry = temp }()
 	utility.NewRegistry = "quay.io/repo"
 
-	_, err := r.Reconcile(context.TODO(),req)
+	_, err := r.Reconcile(context.TODO(), req)
 	if err != nil {
 		t.Fatalf("reconcile: (%v)", err)
 	}
@@ -62,29 +61,27 @@ func TestReconcileDeployment_Reconcile(t *testing.T) {
 		t.Fatalf("get deployment: (%v)", err)
 	}
 	actualImage := dep1.Spec.Template.Spec.Containers[0].Image
-	if actualImage!=utility.NewRegistry+"/"+image{
+	if actualImage != utility.NewRegistry+"/"+image {
 		t.Errorf("Expected Image: %s is not the acuaul Image: %s", utility.NewRegistry, actualImage)
 	}
 }
-
 
 func TestReconcileDaemonSet_Reconcile(t *testing.T) {
 	image := "image:latest"
 	daemon := &appsv1.DaemonSet{
 		ObjectMeta: v12.ObjectMeta{
-			Name: "daemon",
+			Name:      "daemon",
 			Namespace: "default",
 		},
 		Spec: appsv1.DaemonSetSpec{
 			Template: v1.PodTemplateSpec{
-				Spec: v1.PodSpec{Containers: []v1.Container{{Image: "docker.io/repo/"+image}}},
+				Spec: v1.PodSpec{Containers: []v1.Container{{Image: "docker.io/repo/" + image}}},
 			},
 		},
 	}
 	obj := []runtime.Object{daemon}
 
 	cl := fake.NewClientBuilder().WithRuntimeObjects(obj...).Build()
-
 
 	r := ReconcileDaemonSet{cl}
 
@@ -106,7 +103,7 @@ func TestReconcileDaemonSet_Reconcile(t *testing.T) {
 	defer func() { utility.NewRegistry = temp }()
 	utility.NewRegistry = "quay.io/repo"
 
-	_, err := r.Reconcile(context.TODO(),req)
+	_, err := r.Reconcile(context.TODO(), req)
 	if err != nil {
 		t.Fatalf("reconcile: (%v)", err)
 	}
@@ -117,7 +114,7 @@ func TestReconcileDaemonSet_Reconcile(t *testing.T) {
 		t.Fatalf("get deployment: (%v)", err)
 	}
 	actualImage := daemon1.Spec.Template.Spec.Containers[0].Image
-	if actualImage!=utility.NewRegistry+"/"+image{
+	if actualImage != utility.NewRegistry+"/"+image {
 		t.Errorf("Expected Image: %s is not the acuaul Image: %s", utility.NewRegistry, actualImage)
 	}
 }
