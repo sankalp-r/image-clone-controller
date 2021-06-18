@@ -30,6 +30,7 @@ Note: This controller will get deployed in `image-clone-controller` namespace.
 * This simple implementation can be further improved to production-grade implementation.
 * Enhancement can be made to support private-registry.   
 * Unit-tests can be improved to cover more cases.
+* Predicates can be added to improve filtering.
 
 
 
